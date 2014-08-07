@@ -12,15 +12,13 @@ import com.dogshitempire.firstcause.logic.stages.GameStage;
 public class ResearchScreen extends GameScreen {
 	private Skin skin;
 	
-	private TextButton button;
-	
 	@Override
 	public void onAdd(GameStage stage) {
 		super.onAdd(stage);
 		
 		skin = new Skin(Gdx.files.internal("assets/ui/uiskin.json"));
 		
-		button = new TextButton("Click me", skin, "default");
+		final TextButton button = new TextButton("Click me", skin, "default");
         
         button.setWidth(200f);
         button.setHeight(20f);
