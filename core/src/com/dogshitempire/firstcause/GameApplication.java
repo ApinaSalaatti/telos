@@ -2,13 +2,16 @@ package com.dogshitempire.firstcause;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.dogshitempire.firstcause.events.EventManager;
 import com.dogshitempire.firstcause.logic.GameLogic;
-import com.dogshitempire.firstcause.playerview.PlayerView;
+import com.dogshitempire.firstcause.logic.stages.PlayStage;
 
 public class GameApplication implements ApplicationListener {
+	Box2DDebugRenderer debugRenderer;
+	
 	private static GameLogic logic;
-	private static PlayerView view;
 	private static EventManager events;
 	
 	// Used for stepping the game 1/60th second at a time.
@@ -16,9 +19,6 @@ public class GameApplication implements ApplicationListener {
 	
 	public static GameLogic getLogic() {
 		return logic;
-	}
-	public static PlayerView getView() {
-		return view;
 	}
 	public static EventManager getEventManager() {
 		return events;
@@ -29,9 +29,11 @@ public class GameApplication implements ApplicationListener {
 		events = new EventManager();
 		
 		logic = new GameLogic();
-		view = new PlayerView();
 		
-		Gdx.input.setInputProcessor(view);
+		// Set the starting stage
+		logic.changeStage(new PlayStage());
+		
+		debugRenderer = new Box2DDebugRenderer();
 	}
 
 	@Override
@@ -44,14 +46,19 @@ public class GameApplication implements ApplicationListener {
 	public void render() {
 		accumulated += Gdx.graphics.getDeltaTime();
 		
-		view.render();
+		Gdx.gl.glClearColor(1, 1, 1, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		logic.getStage().draw();
+		//view.render();
+		
+		debugRenderer.render(logic.getPhysics().getWorld(), logic.getStage().getCamera().combined);
 		
 		//Gdx.app.log("DELTA", ""+Gdx.graphics.getDeltaTime());
 		float step = 1f / 60f;
 		while(accumulated >= step) {
-			view.update(step);
-			logic.update(step);
 			events.update(step);
+			logic.update(step);
 			
 			accumulated -= step;
 		}

@@ -1,8 +1,6 @@
 package com.dogshitempire.firstcause.actors.components;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -52,7 +50,7 @@ public class RenderComponent extends BaseComponent {
 	}
 	
 	public void draw(Batch batch, float parentAlpha) {
-		float angle = actor.getAngle();
+		float angle = actor.getRotation();
 		
 		// Set alpha
 		Color c = batch.getColor();

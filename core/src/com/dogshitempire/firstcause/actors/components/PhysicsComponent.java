@@ -30,6 +30,6 @@ public class PhysicsComponent extends BaseComponent {
 	public void update(float deltaSeconds) {
 		actor.setX(body.getPosition().x);
 		actor.setY(body.getPosition().y);
-		actor.setAngle(body.getAngle()  * MathUtils.radiansToDegrees);
+		actor.setRotation(body.getAngle()  * MathUtils.radiansToDegrees);
 	}
 }

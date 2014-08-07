@@ -8,32 +8,15 @@ import com.dogshitempire.firstcause.actors.components.BaseComponent;
 import com.dogshitempire.firstcause.actors.components.RenderComponent;
 
 public class GameActor extends Actor {
-	private float angle;
-	
 	public RenderComponent rendering;
 	
 	private ObjectMap<String, BaseComponent> components;
-	
-	public void setAngle(float a) {
-		angle = a;
-	}
-	public float getAngle() {
-		return angle;
-	}
+
 	
 	public GameActor() {
-		angle = 0f;
+		setRotation(0f);
 		
 		components = new ObjectMap<String, BaseComponent>();
-		
-		/*
-		Texture texture = new Texture(Gdx.files.internal("assets/images/ship.png"));
-		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		
-		physics = new PhysicsComponent();
-		rendering = new RenderComponent(texture);
-		attachComponent(physics);
-		attachComponent(rendering);*/
 	}
 	
 	public void attachComponent(BaseComponent component) {
